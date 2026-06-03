@@ -1,4 +1,4 @@
-# YTUI — osu!lazer 风格 Qt Quick 设计系统
+# YTUI — Components for Qt 6 QML
 
 ## 运行
 
