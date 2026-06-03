@@ -41,10 +41,15 @@ Window {
         }
     }
 
-    // ── Component Gallery ──────────────────────────
+    // ── Demo cards ─────────────────────────────────
 
-    Gallery {}
+    Column {
 
-    // 切换回独立 Demo 页面用：
-    // Row { anchors.centerIn: parent; spacing: 40; ButtonDemo {} ToggleDemo {} }
+        anchors.centerIn: parent
+        spacing: 20
+
+        ButtonDemo {}
+        ToggleDemo {}
+        SliderDemo {}
+    }
 }

@@ -2,221 +2,57 @@ import QtQuick
 import "../controls"
 import "../theme"
 
-// ═══════════════════════════════════════════════════
-// Glass card — wraps the demo
-// ═══════════════════════════════════════════════════
+Rectangle {
 
-Item {
+    width:  700
+    height: 375
 
-    id: cardWrapper
+    radius: 20
+    color:  "#14FFFFFF"
+    border.width: 1
+    border.color: "#1AFFFFFF"
 
-    width:  560
-    height: 680
-
-    // ── Card body ─────────────────────────────────
-
-    Rectangle {
-
-        anchors.fill: parent
-
-        radius: 28
-
-        color:        "#18FFFFFF"
-        border.width: 1
-        border.color: "#1AFFFFFF"
-
-        // ── Glass specular ─────────────────────────
-
-        Rectangle {
-
-            anchors.fill: parent
-            radius: parent.radius
-
-            gradient: Gradient {
-
-                GradientStop { position: 0.0;   color: "#0CFFFFFF" }
-                GradientStop { position: 0.03;  color: "#06FFFFFF" }
-                GradientStop { position: 0.08;  color: "#00000000" }
-            }
-        }
-    }
-
-    // ═══════════════════════════════════════════════════
-    // Content
-    // ═══════════════════════════════════════════════════
-
-    Column {
+    Row {
 
         anchors.centerIn: parent
-        spacing: 34
-        width: 360
-
-        // ── Header ─────────────────────────────────
+        spacing: 32
 
         Text {
-
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            text: "YTUI Button"
+            anchors.verticalCenter: parent.verticalCenter
+            text:  "YTButton"
             color: "white"
-            font.pixelSize: 26
-            font.weight: Font.Bold
+            font.pixelSize: 18
+            font.weight: Font.DemiBold
         }
 
-        // ── Variant · Primary ──────────────────────
-
         Column {
+            spacing: 8
 
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 4
-
-            Text {
-
-                text:  "Variant · Primary"
-                color: "#66FFFFFF"
-                font.pixelSize: 11
-                font.weight: Font.Medium
+            Row { spacing: 12
+                YTButton { text: "Play"; variant: "primary"; accentColor: YTTheme.accent; iconSource: "../assets/icons/play.svg" }
+                Text { text: "variant: primary"; color: "#55FFFFFF"; font.pixelSize: 12; anchors.verticalCenter: parent.verticalCenter }
             }
-
-            Item { width: 1; height: 6 }
-
-            YTButton {
-
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                text:        "Play"
-                iconSource:  "../assets/icons/play.svg"
-                variant:     "primary"
-                accentColor: YTTheme.accent
-                onClicked:   console.log("Play")
+            Row { spacing: 12
+                YTButton { text: "Options"; variant: "secondary"; accentColor: YTColors.blue; iconSource: "../assets/icons/settings.svg" }
+                Text { text: "variant: secondary"; color: "#55FFFFFF"; font.pixelSize: 12; anchors.verticalCenter: parent.verticalCenter }
             }
-        }
-
-        // ── Variant · Secondary ────────────────────
-
-        Column {
-
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 4
-
-            Text {
-
-                text:  "Variant · Secondary"
-                color: "#55FFFFFF"
-                font.pixelSize: 11
-                font.weight: Font.Medium
+            Row { spacing: 12
+                YTButton { text: "Exit"; variant: "ghost"; accentColor: YTColors.purple; iconSource: "../assets/icons/exit.svg" }
+                Text { text: "variant: ghost"; color: "#55FFFFFF"; font.pixelSize: 12; anchors.verticalCenter: parent.verticalCenter }
             }
-
-            Item { width: 1; height: 6 }
-
-            YTButton {
-
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                text:        "Options"
-                iconSource:  "../assets/icons/settings.svg"
-                variant:     "secondary"
-                accentColor: YTColors.blue
-                onClicked:   console.log("Options")
+            Row { spacing: 12
+                YTButton { text: "Disabled"; variant: "primary"; enabled: false }
+                Text { text: "enabled: false"; color: "#55FFFFFF"; font.pixelSize: 12; anchors.verticalCenter: parent.verticalCenter }
             }
-        }
-
-        // ── Variant · Ghost ────────────────────────
-
-        Column {
-
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 4
-
-            Text {
-
-                text:  "Variant · Ghost"
-                color: "#44FFFFFF"
-                font.pixelSize: 11
-                font.weight: Font.Medium
-            }
-
-            Item { width: 1; height: 6 }
-
-            YTButton {
-
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                text:        "Exit"
-                iconSource:  "../assets/icons/exit.svg"
-                variant:     "ghost"
-                accentColor: YTColors.purple
-                onClicked:   console.log("Exit")
-            }
-        }
-
-        // ── State · Disabled ───────────────────────
-
-        Column {
-
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 4
-
-            Text {
-
-                text:  "State · Disabled"
-                color: "#44FFFFFF"
-                font.pixelSize: 11
-                font.weight: Font.Medium
-            }
-
-            Item { width: 1; height: 6 }
-
-            YTButton {
-
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                text:    "Disabled"
-                variant: "primary"
-                enabled: false
-            }
-        }
-
-        // ── State · Loading ────────────────────────
-
-        Column {
-
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 4
-
-            Text {
-
-                text:  "State · Loading"
-                color: "#44FFFFFF"
-                font.pixelSize: 11
-                font.weight: Font.Medium
-            }
-
-            Item { width: 1; height: 6 }
-
-            YTButton {
-
-                id: loadingBtn
-
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                text:        "Save"
-                iconSource:  "../assets/icons/download.svg"
-                variant:     "primary"
-                accentColor: YTColors.green
-                loading:     false
-
-                onClicked: {
-                    loadingBtn.loading = true
-                    loadingTimer.restart()
+            Row { spacing: 12
+                YTButton {
+                    id: bDemo
+                    text: "Save"; variant: "primary"; accentColor: YTColors.green
+                    iconSource: "../assets/icons/download.svg"
+                    onClicked: { bDemo.loading = true; bDemoTimer.restart() }
                 }
-            }
-
-            Timer {
-
-                id: loadingTimer
-                interval: 1800
-                onTriggered: loadingBtn.loading = false
+                Text { text: "loading: true (click)"; color: "#55FFFFFF"; font.pixelSize: 12; anchors.verticalCenter: parent.verticalCenter }
+                Timer { id: bDemoTimer; interval: 1800; onTriggered: bDemo.loading = false }
             }
         }
     }

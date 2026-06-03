@@ -14,19 +14,16 @@ Item {
 
     // ── Public API ──────────────────────────────────
 
-    property bool   checked:     false
-    property string variant:     "primary"
-    property color  accentColor: YTTheme.accent
+    property bool  checked:     false
+    property color accentColor: YTTheme.accent
 
     signal toggled(bool checked)
 
     // ── Internal geometry ──────────────────────────
 
-    readonly property int trackWidth:  width
-    readonly property int trackHeight: height
-    readonly property int knobSize:    height - 6          // 22
-    readonly property int knobRestX:   3                    // left gap
-    readonly property int knobOnX:     width - knobSize - 3 // right gap
+    readonly property int knobSize: height - 6
+    readonly property int knobRestX:   3
+    readonly property int knobOnX:     width - knobSize - 3
 
     // ── State ───────────────────────────────────────
 
@@ -77,8 +74,8 @@ Item {
         YTShadow {
 
             anchors.centerIn: parent
-            width:  root.trackWidth
-            height: root.trackHeight
+            width:  root.width
+            height: root.height
             z: -1
 
             shadowHOffset:
@@ -111,15 +108,56 @@ Item {
             anchors.fill: parent
             radius: height / 2
 
-            // Track color — accent when on, gray when off
             color:
                 !root.enabled ? YTTheme.disabledSurfaceCore
                 : root.checked
                     ? root.accentColor
-                    : Qt.darker(YTTheme.disabledSurfaceUpper, 1.1)
+                    : "#363636"
 
             Behavior on color {
                 ColorAnimation { duration: 200; easing.type: Easing.OutCubic }
+            }
+
+            // Glass specular — matches YTButton surface
+            Rectangle {
+
+                anchors.fill: parent
+                radius: parent.radius
+
+                gradient: Gradient {
+                    GradientStop { position: 0.0;  color: "#0CFFFFFF" }
+                    GradientStop { position: 0.08; color: "#04FFFFFF" }
+                    GradientStop { position: 0.30; color: "#00000000" }
+                }
+
+                opacity: root.checked ? 0.6 : 0.0
+                Behavior on opacity {
+                    NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
+                }
+            }
+        }
+
+        // ── Knob glow — thin ring on hover ────────
+
+        Rectangle {
+
+            anchors.centerIn: knob
+
+            width:  knob.width + 7
+            height: knob.height + 7
+
+            radius:       width / 2
+            color:        "transparent"
+            border.width: 1.5
+            border.color: root.accentColor
+
+            opacity: root.hovered ? 0.22 : 0.0
+            z: -1
+
+            scale: knob.scale
+
+            Behavior on opacity {
+                NumberAnimation { duration: YTAnimation.normal; easing.type: Easing.OutCubic }
             }
         }
 
@@ -132,37 +170,36 @@ Item {
             width:  root.knobSize
             height: root.knobSize
 
-            y: 3                          // centered vertically
+            y: 3
             radius: width / 2
             color:  "white"
+
+            // Subtle rim on hover
+            border.width: root.hovered ? 1 : 0
+            border.color: "#22FFFFFF"
 
             x: root.checked ? root.knobOnX : root.knobRestX
 
             Behavior on x {
                 NumberAnimation {
-                    duration: 220
+                    duration: 260
                     easing.type: Easing.OutBack
                 }
             }
 
-        }
+            Behavior on border.width {
+                NumberAnimation { duration: YTAnimation.normal; easing.type: Easing.OutCubic }
+            }
 
-        // ── Ripple ────────────────────────────────
+            // Thumb motion feedback (not ripple)
+            scale:
+                root.pressed ? 0.94
+                : root.hovered ? 1.08
+                : 1.0
 
-        YTRipple {
-
-            id: ripple
-
-            anchors.centerIn: parent
-            width:  root.trackWidth
-            height: root.trackHeight
-
-            rippleColor: Qt.rgba(
-                root.accentColor.r,
-                root.accentColor.g,
-                root.accentColor.b,
-                0.25
-            )
+            Behavior on scale {
+                NumberAnimation { duration: YTAnimation.normal; easing.type: Easing.OutCubic }
+            }
         }
     }
 
@@ -178,12 +215,6 @@ Item {
 
         hoverEnabled: root.interactive
         cursorShape:  root.interactive ? Qt.PointingHandCursor : Qt.ArrowCursor
-
-        onPressed: {
-            if (root.interactive) {
-                ripple.start(mouseX, mouseY)
-            }
-        }
 
         onClicked: {
             if (root.interactive) {
