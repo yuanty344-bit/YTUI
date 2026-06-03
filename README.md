@@ -5,6 +5,8 @@
 ```powershell
 $env:PATH = "D:\Qt\6.11.1\mingw_64\bin;" + $env:PATH
 qml Main.qml
+
+D:\Qt\6.11.1\mingw_64\bin\qml Main.qml
 ```
 
 ## 结构

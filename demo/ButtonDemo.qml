@@ -10,10 +10,8 @@ Item {
 
     id: cardWrapper
 
-    anchors.centerIn: parent
-
-    width:  800
-    height: 720
+    width:  560
+    height: 680
 
     // ── Card body ─────────────────────────────────
 
@@ -50,8 +48,8 @@ Item {
     Column {
 
         anchors.centerIn: parent
-        spacing: 40
-        width: 400
+        spacing: 34
+        width: 360
 
         // ── Header ─────────────────────────────────
 

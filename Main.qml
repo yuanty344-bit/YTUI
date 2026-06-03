@@ -41,7 +41,10 @@ Window {
         }
     }
 
-    // ── Demo ────────────────────────────────────────
+    // ── Component Gallery ──────────────────────────
 
-    ButtonDemo {}
+    Gallery {}
+
+    // 切换回独立 Demo 页面用：
+    // Row { anchors.centerIn: parent; spacing: 40; ButtonDemo {} ToggleDemo {} }
 }

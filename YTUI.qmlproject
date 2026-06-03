@@ -1,0 +1,38 @@
+/* YTUI — Qt Quick UI project */
+
+import QmlProject
+
+Project {
+
+    /* Qt 6.11 */
+    minimumQtVersion: "6.0"
+    qt6Project: true
+
+    /* Main QML file */
+    mainFile: "Main.qml"
+
+    /* Source directories */
+    QmlFiles {
+        files: [
+            "controls/*.qml",
+            "primitives/*.qml",
+            "theme/*.qml",
+            "demo/*.qml"
+        ]
+    }
+
+    /* Assets */
+    Files {
+        files: [
+            "assets/**"
+        ]
+    }
+
+    /* Include these in project tree */
+    imports: [
+        "controls",
+        "primitives",
+        "theme",
+        "demo"
+    ]
+}

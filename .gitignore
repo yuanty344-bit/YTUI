@@ -11,6 +11,10 @@ build/
 *.pro.user
 Makefile
 
+# Qt Creator
+*.qmlproject.user
+*.pro.user*
+
 # OS
 .DS_Store
 Thumbs.db
