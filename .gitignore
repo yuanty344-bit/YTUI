@@ -1,0 +1,16 @@
+# Qt
+*.qmlc
+*.jsc
+*.obj
+*.o
+moc_*
+qrc_*
+
+# Build
+build/
+*.pro.user
+Makefile
+
+# OS
+.DS_Store
+Thumbs.db
