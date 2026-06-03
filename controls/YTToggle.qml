@@ -103,8 +103,6 @@ Item {
 
         Rectangle {
 
-            id: track
-
             anchors.fill: parent
             radius: height / 2
 

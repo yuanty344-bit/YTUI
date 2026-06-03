@@ -134,7 +134,7 @@ Item {
     }
 
     // ═══════════════════════════════════════════════════
-    // Thumb — floats above the track
+    // Thumb — glow + shadow + surface
     // ═══════════════════════════════════════════════════
 
     // Energy glow — two-layer soft halo
