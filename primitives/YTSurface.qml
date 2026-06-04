@@ -23,7 +23,7 @@ Rectangle {
     opacity:
         root.disabled ? 0.38
         : root.pressed ? 0.90
-        : root.hovered ? 1.0
+        : root.hovered ? (root.variant === "ghost" ? 0.08 : 1.0)
         : baseAlpha
 
     Behavior on opacity {

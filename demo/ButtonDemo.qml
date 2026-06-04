@@ -5,7 +5,7 @@ import "../theme"
 Rectangle {
 
     width:  700
-    height: 375
+    height: 400
 
     radius: 20
     color:  "#14FFFFFF"
@@ -15,7 +15,7 @@ Rectangle {
     Row {
 
         anchors.centerIn: parent
-        spacing: 32
+        spacing: 40
 
         Text {
             anchors.verticalCenter: parent.verticalCenter
@@ -26,7 +26,7 @@ Rectangle {
         }
 
         Column {
-            spacing: 8
+            spacing: 12
 
             Row { spacing: 12
                 YTButton { text: "Play"; variant: "primary"; accentColor: YTTheme.accent; iconSource: "../assets/icons/play.svg" }

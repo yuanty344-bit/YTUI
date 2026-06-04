@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Window
+import QtQuick.Controls
 
 import "demo"
 import "primitives"
@@ -41,15 +42,29 @@ Window {
         }
     }
 
-    // ── Demo cards ─────────────────────────────────
+    // ── Scrollable demo cards ──────────────────────
 
-    Column {
+    Flickable {
 
-        anchors.centerIn: parent
-        spacing: 20
+        anchors.fill: parent
+        anchors.margins: 30
 
-        ButtonDemo {}
-        ToggleDemo {}
-        SliderDemo {}
+        contentWidth:  column.width
+        contentHeight: column.height
+
+        ScrollBar.vertical: ScrollBar {}
+
+        Column {
+
+            id: column
+
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            spacing: 40
+
+            ButtonDemo {}
+            ToggleDemo {}
+            SliderDemo {}
+        }
     }
 }

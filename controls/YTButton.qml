@@ -27,6 +27,9 @@ Item {
 
     signal clicked()
 
+    Accessible.role: Accessible.Button
+    Accessible.name: text || "Button"
+
     // ── State ───────────────────────────────────────
 
     readonly property bool interactive: root.enabled && !root.loading
@@ -89,7 +92,6 @@ Item {
         }
 
         Behavior on scale {
-            enabled: !root.loading
             NumberAnimation {
                 duration: root.pressed ? YTAnimation.micro : YTAnimation.normal
                 easing.type: Easing.OutCubic
@@ -106,6 +108,13 @@ Item {
             height: root.surfaceHeight
 
             z: -2
+
+            tintColor: Qt.rgba(
+                root.accentColor.r * 0.3,
+                root.accentColor.g * 0.3,
+                root.accentColor.b * 0.3,
+                1.0
+            )
 
             shadowHOffset:
                 root.pressed ? YTTheme.shadowHOffsetPress
@@ -176,7 +185,7 @@ Item {
 
                 sourceSize: Qt.size(18, 18)
                 fillMode:   Image.PreserveAspectFit
-                visible:    source != ""
+                visible:    source != "" && !root.loading
             }
 
             Text {

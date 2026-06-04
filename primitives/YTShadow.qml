@@ -8,10 +8,11 @@ Item {
 
     // ── Dynamic elevation — diagonal light (upper-right → lower-left) ──
 
-    property real shadowHOffset: 2
-    property real shadowVOffset: 4
-    property real shadowBlur:    1.0
-    property real shadowAlpha:   0.45
+    property real  shadowHOffset: 2
+    property real  shadowVOffset: 4
+    property real  shadowBlur:    1.0
+    property real  shadowAlpha:   0.45
+    property color tintColor:     "#000000"
 
     Behavior on shadowHOffset {
         NumberAnimation { duration: YTAnimation.normal; easing.type: Easing.OutCubic }
@@ -38,7 +39,7 @@ Item {
         height: parent.height - 2
 
         radius:  height / 2
-        color:   "#000000"
+        color:   root.tintColor
         opacity: 0.85
     }
 

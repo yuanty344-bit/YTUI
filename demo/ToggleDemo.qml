@@ -5,7 +5,7 @@ import "../theme"
 Rectangle {
 
     width:  700
-    height: 150
+    height: 260
 
     radius: 20
     color:  "#14FFFFFF"
@@ -15,7 +15,7 @@ Rectangle {
     Row {
 
         anchors.centerIn: parent
-        spacing: 32
+        spacing: 40
 
         Text {
             anchors.verticalCenter: parent.verticalCenter
@@ -26,19 +26,20 @@ Rectangle {
         }
 
         Column {
-            spacing: 8
+            spacing: 18
+            topPadding: 10
 
             Row { spacing: 12
-                YTToggle { checked: true; accentColor: YTTheme.accent }
-                Text { text: "checked: true"; color: "#55FFFFFF"; font.pixelSize: 12; anchors.verticalCenter: parent.verticalCenter }
+                YTToggle { text: "checked: true";  checked: true;  accentColor: YTTheme.accent }
+                Text   { text: "hover for glow"; color: "#55FFFFFF"; font.pixelSize: 12; anchors.verticalCenter: parent.verticalCenter }
             }
             Row { spacing: 12
-                YTToggle { checked: false; accentColor: YTColors.blue }
-                Text { text: "checked: false"; color: "#55FFFFFF"; font.pixelSize: 12; anchors.verticalCenter: parent.verticalCenter }
+                YTToggle { text: "checked: false"; checked: false; accentColor: YTColors.blue }
+                Text   { text: "click to toggle"; color: "#55FFFFFF"; font.pixelSize: 12; anchors.verticalCenter: parent.verticalCenter }
             }
             Row { spacing: 12
-                YTToggle { enabled: false }
-                Text { text: "enabled: false"; color: "#55FFFFFF"; font.pixelSize: 12; anchors.verticalCenter: parent.verticalCenter }
+                YTToggle { text: "enabled: false"; enabled: false }
+                Text   { text: "no interaction"; color: "#55FFFFFF"; font.pixelSize: 12; anchors.verticalCenter: parent.verticalCenter }
             }
         }
     }

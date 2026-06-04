@@ -30,8 +30,8 @@ Rectangle {
 
         id: ripple
 
-        width:  280
-        height: 280
+        width:  Math.max(root.width, root.height) * 5
+        height: Math.max(root.width, root.height) * 5
 
         radius:  width / 2
         color:   root.rippleColor

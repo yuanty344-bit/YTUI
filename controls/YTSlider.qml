@@ -18,9 +18,13 @@ Item {
     property real   to:          100.0
     property real   value:       50.0
     property string valueSuffix: "%"
+    property real   stepSize:    0.0     // 0 = continuous, >0 = discrete steps
     property color  accentColor: YTTheme.accent
 
     signal moved(real value)
+
+    Accessible.role: Accessible.Slider
+    Accessible.name: text || "Slider"
 
     // ── Internal geometry ──────────────────────────
 
@@ -28,10 +32,9 @@ Item {
     readonly property int thumbR:   10                                     // thumb radius
     readonly property int trackY:   38                                     // track vertical center
     readonly property int thumbY:   trackY + trackH / 2 - thumbR          // thumb centered on track
-    readonly property int travel:   width - thumbR * 2                    // thumb center travel
-
-    function thumbX(v) {
-        var t = (v - root.from) / (root.to - root.from)
+    readonly property int travel:   width - thumbR * 2
+    readonly property int thumbX: {
+        var t = (root.value - root.from) / (root.to - root.from)
         return Math.max(0, Math.min(root.travel, t * root.travel))
     }
 
@@ -102,7 +105,7 @@ Item {
 
         y:      root.trackY
         x:      0
-        width:  thumbX(root.value) + root.thumbR
+        width:  root.thumbX + root.thumbR
 
         height: root.trackH
 
@@ -142,7 +145,7 @@ Item {
 
         id: glowOuter
 
-        x:      thumbX(root.value) + root.thumbR - width / 2
+        x:      root.thumbX + root.thumbR - width / 2
         y:      root.thumbY + root.thumbR - height / 2
 
         width:  thumbR * 2 + 22
@@ -180,7 +183,7 @@ Item {
 
         id: thumbShadow
 
-        x:      thumbX(root.value) + root.thumbR - width / 2
+        x:      root.thumbX + root.thumbR - width / 2
         y:      root.thumbY + root.thumbR - height / 2 + (root.hovered ? 4 : 1)
 
         width:  thumbR * 2
@@ -205,7 +208,7 @@ Item {
 
         id: thumb
 
-        x:      thumbX(root.value) + root.thumbR - width / 2
+        x:      root.thumbX + root.thumbR - width / 2
         y:      root.thumbY
 
         width:  thumbR * 2
@@ -262,7 +265,11 @@ Item {
 
         function updateValue(mx) {
             var t = Math.max(0, Math.min(1, (mx - root.thumbR) / root.travel))
-            root.value = root.from + t * (root.to - root.from)
+            var v = root.from + t * (root.to - root.from)
+            if (root.stepSize > 0) {
+                v = Math.round(v / root.stepSize) * root.stepSize
+            }
+            root.value = v
             root.moved(root.value)
         }
     }

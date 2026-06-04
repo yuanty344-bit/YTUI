@@ -14,22 +14,42 @@ Item {
 
     // ── Public API ──────────────────────────────────
 
-    property bool  checked:     false
-    property color accentColor: YTTheme.accent
+    property alias  text:        labelText.text
+    property bool   checked:     false
+    property color  accentColor: YTTheme.accent
 
     signal toggled(bool checked)
 
+    Accessible.role: Accessible.CheckBox
+    Accessible.name: text || "Toggle"
+
     // ── Internal geometry ──────────────────────────
 
-    readonly property int knobSize: height - 6
-    readonly property int knobRestX:   3
-    readonly property int knobOnX:     width - knobSize - 3
+    readonly property int knobSize:  visualRoot.height - 6   // 22
+    readonly property int knobRestX: 3
+    readonly property int knobOnX:    width - knobSize - 3
 
     // ── State ───────────────────────────────────────
 
     readonly property bool interactive: root.enabled
     property bool hovered: mouse.containsMouse && root.interactive
     property bool pressed: mouse.pressed     && root.interactive
+
+    // ── Label (optional) — sits above toggle ────────
+
+    Text {
+
+        id: labelText
+
+        anchors.bottom: visualRoot.top
+        anchors.bottomMargin: 2
+        anchors.left: parent.left
+
+        color: root.enabled ? "white" : YTTheme.disabledText
+        font.pixelSize: 14
+        font.weight: Font.Medium
+        visible: text !== ""
+    }
 
     // ═══════════════════════════════════════════════════
     // Visual root
@@ -77,6 +97,13 @@ Item {
             width:  root.width
             height: root.height
             z: -1
+
+            tintColor: Qt.rgba(
+                root.accentColor.r * 0.3,
+                root.accentColor.g * 0.3,
+                root.accentColor.b * 0.3,
+                1.0
+            )
 
             shadowHOffset:
                 root.pressed ? YTTheme.shadowHOffsetPress
